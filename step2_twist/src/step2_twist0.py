@@ -37,8 +37,12 @@ def init_process(args):
 #        A1_list =[0,-2,-4,-6]; A2_list = [14,12,10]
         
         df_step1 = pd.read_csv(step1_params_csv)
-        
-        a_,b_,theta = df_step1.iloc[0,["a","b","theta"]].values
+        a_list=df_step1['a'].to_list()
+        b_list=df_step1['b'].to_list()
+        theta_list=df_step1['theta'].to_list()
+        a_ = a_list[0]
+        b_ = b_list[0]
+        theta = theta_list[0]
         step1_para_zip = [[a_,b_,theta]]##映進面をどっち側にとるか
 #         print(step1_para_zip)
 #         d = 5.5
