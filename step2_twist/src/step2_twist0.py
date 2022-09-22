@@ -38,7 +38,7 @@ def init_process(args):
         
         df_step1 = pd.read_csv(step1_params_csv)
         
-        a_,b_,theta = df_step1.loc[df_step1["E"].idxmin(),["a","b","theta"]].values
+        a_,b_,theta = df_step1.iloc[0,["a","b","theta"]].values
         step1_para_zip = [[a_,b_,theta]]##映進面をどっち側にとるか
 #         print(step1_para_zip)
 #         d = 5.5
