@@ -129,14 +129,14 @@ def end_process(args):
         for j in range(len(r_list)):##p
             Rt=r_list[i]
             Rs=r_list[j]
-            #rt.append(Rt)
-            #rs.append(Rs)
+            rt.append(Rt)
+            rs.append(Rs)
             if ((Rt-Rs)>4) or (-4>(Rt-Rs)):
-                #E=-46
-                continue
+                E=4*E_list_1[0]+2*E_list_2[40]
+                #continue
             else:
-                rt.append(Rt)
-                rs.append(Rs)
+                #rt.append(Rt)
+                #rs.append(Rs)
                 d=i-j
                 k=int(40+d)
                 Et1 = E_list_1[i]
