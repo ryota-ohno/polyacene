@@ -107,7 +107,7 @@ def end_process(args):
     with open (result_txt,'w')as f:
         f.write('z  Et  Ep \n')
         for i in range(len(rt_list)):
-            result=[rt_list[i],E_list1[i],E_list2[i]]
+            result=[str(rt_list[i]),str(E_list1[i]),str(E_list2[i])]
             D="     ".join(result)
             f.write(D)
             f.write("\n")
