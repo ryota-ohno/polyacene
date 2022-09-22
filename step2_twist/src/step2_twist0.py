@@ -28,7 +28,7 @@ def init_process(args):
     os.makedirs(os.path.join(auto_dir,'gaussview'), exist_ok=True)
 
     def get_init_para_csv(auto_dir,monomer_name):
-        step1_params_csv = os.path.join('~/Working/step2_twist/{}/'.format(monomer_name), 'step1_result.csv')
+        step1_params_csv = os.path.join('~/Working/polyacene/step2_twist/{}/'.format(monomer_name), 'step1_result.csv')
         init_params_csv = os.path.join(auto_dir, 'step2_twist_init_params.csv')
         
         init_para_list = []
