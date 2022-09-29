@@ -47,6 +47,16 @@ def init_process(args):
 #         print(step1_para_zip)
 #         d = 5.5
         
+        if monomer_name=='naphthalene':
+            n=2
+        elif monomer_name=='anthracene':
+            n=3
+        elif monomer_name=='tetracene':
+            n=4
+        elif monomer_name=='pentacene':
+            n=5
+        elif monomer_name=='hexacene':
+            n=6
         for a_,b_,theta in step1_para_zip:
             print('a,b,theta')
             print(a_,b_,theta)
@@ -54,7 +64,7 @@ def init_process(args):
                 for A2 in A2_list:
                     if A1==0 and A2==0:
                         continue
-                    a = a_# + 4 * d * abs(np.sin(np.radians(A1)))
+                    a = a_ + 4.8 * n * abs(np.sin(np.radians(A1)))
                     b = b_/np.cos(np.radians(A2))##aが映進面に垂直な方向　bが映進面に平行な方向　b方向には面間距離を保って分子を傾ける
                     init_para_list.append([np.round(a,1),np.round(b,1),theta,A1,A2,'NotYet'])
                                 
