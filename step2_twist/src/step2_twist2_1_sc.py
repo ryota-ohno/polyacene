@@ -50,8 +50,6 @@ def init_process(args):
             print(a_,b_,theta)
             for A1 in tqdm(A1_list):
                 for A2 in A2_list:
-                    if A1==0 and A2==0:
-                        continue
                     a = a_ #+ 4.8 * n * abs(np.sin(np.radians(A1)))
                     b = b_/np.cos(np.radians(A2))##aが映進面に垂直な方向　bが映進面に平行な方向　b方向には面間距離を保って分子を傾ける
                     init_para_list.append([np.round(a,1),np.round(b,1),theta,A1,A2,'NotYet'])
