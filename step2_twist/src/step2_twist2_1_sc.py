@@ -164,7 +164,7 @@ def get_params_dict(auto_dir, num_init, fixed_param_keys, opt_param_keys):###dic
             df_init_params = update_value_in_df(df_init_params,index,'status','InProgress')
             df_init_params.to_csv(init_params_csv,index=False)
             params_dict = df_init_params.loc[index,fixed_param_keys+opt_param_keys].to_dict()
-            return params_dict
+            return [params_dict]
     for index in df_init_params.index:##こちら側はinit_params内のある業に関する探索が終わった際の新しい行での探索を開始するもの
         df_init_params = pd.read_csv(init_params_csv)
         init_params_dict = df_init_params.loc[index,fixed_param_keys+opt_param_keys].to_dict()
