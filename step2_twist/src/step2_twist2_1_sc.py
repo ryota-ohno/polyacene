@@ -9,7 +9,7 @@ import numpy as np
 from scipy import signal
 import scipy.spatial.distance as distance
 import random
-os.environ['HOME'] ='/home/z40145w'
+os.environ['HOME'] ='/home/ohno'
 INTERACTION_PATH = os.path.join(os.environ['HOME'],'Working/interaction/')
 sys.path.append(INTERACTION_PATH)
 
