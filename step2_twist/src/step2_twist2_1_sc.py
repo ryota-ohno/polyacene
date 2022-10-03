@@ -13,7 +13,7 @@ os.environ['HOME'] ='/home/ohno'
 INTERACTION_PATH = os.path.join(os.environ['HOME'],'Working/interaction/')
 sys.path.append(INTERACTION_PATH)
 
-from make_new import exec_gjf
+from make_new_sc import exec_gjf
 from utils import get_E0
 
 def init_process(args):
