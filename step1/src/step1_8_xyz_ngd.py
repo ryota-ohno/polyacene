@@ -198,8 +198,8 @@ def get_opt_params_dict(df_cur, init_params_dict,fixed_params_dict):
     a_init_prev = init_params_dict['a']; b_init_prev = init_params_dict['b']; theta = init_params_dict['theta']
     while True:
         E_list=[];ab_list=[]
-        for a in [a_init_prev-0.1,a_init_prev,a_init_prev+0.1]:
-            for b in [b_init_prev-0.1,b_init_prev,b_init_prev+0.1]:
+        for a in [a_init_prev]:
+            for b in [b_init_prev]:
                 a = np.round(a,1);b = np.round(b,1)
                 df_val_ab = df_val[(df_val['a']==a)&(df_val['b']==b)&(df_val['theta']==theta)&(df_val['status']=='Done')]
                 if len(df_val_ab)==0:
