@@ -363,13 +363,13 @@ def get_params_dict(auto_dir, num_nodes):
         else:
             for i in range(len(opt_params_matrix)):
                 opt_params_dict={'a':np.round(opt_params_matrix[i][0],1),'b':np.round(opt_params_matrix[i][1],1)}
-                df_inprogress = filter_df(df_cur, {**fixed_params_dict,**opt_params_dict,'status':'InProgress'})
-                df_qw = filter_df(df_cur, {**fixed_params_dict,**opt_params_dict,'status':'qw'})
-                if (len(df_inprogress)>=1) or (len(df_qw)>=1):
-                    continue
-                else:
-                    d={**fixed_params_dict,**opt_params_dict}
-                    dict_matrix.append(d)
+                #df_inprogress = filter_df(df_cur, {**fixed_params_dict,**opt_params_dict,'status':'InProgress'})
+                #df_qw = filter_df(df_cur, {**fixed_params_dict,**opt_params_dict,'status':'qw'})
+                #if (len(df_inprogress)>=1) or (len(df_qw)>=1):
+                #    continue
+                #else:
+                d={**fixed_params_dict,**opt_params_dict}
+                dict_matrix.append(d)
                     #print(d)
     return dict_matrix
         
@@ -388,7 +388,7 @@ def get_opt_params_dict(df_cur, init_params_dict,fixed_params_dict):
                     continue
                 xyz_list.append([a,b]);E_list.append(df_val_xyz['E'].values[0])
         if len(para_list) != 0:
-            print(para_list)
+            #print(para_list)
             return False,para_list
         a_init,b_init = xyz_list[np.argmin(np.array(E_list))]
         if a_init==a_init_prev and b_init==b_init_prev:
