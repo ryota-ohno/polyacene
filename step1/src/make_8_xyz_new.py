@@ -106,8 +106,8 @@ def get_one_exe(file_name,machine_type):
 ######################################## 特化関数 ########################################
 
 ##################gaussview##################
-def make_xyzfile(monomer_name,params_dict,isInterlayer=False):
-    a_ = params_dict['a']; b_ = params_dict['b']
+def make_xyzfile(monomer_name,params_dict,structure_type,isInterlayer=False):
+    a_ = params_dict.get('a',0.0); b_ = params_dict.get('b',0.0)
     A1 = params_dict.get('A1',0.0); A2 = params_dict.get('A2',0.0); A3 = params_dict['theta']
     phi1 = params_dict.get('phi1',0.0); phi2 = params_dict.get('phi2',0.0)
     print(phi1, phi2)
@@ -123,8 +123,14 @@ def make_xyzfile(monomer_name,params_dict,isInterlayer=False):
     monomer_array_t3 = get_monomer_xyzR(monomer_name,-a_/2,-b_/2,0,-A1,A2,-A3, phi2)
     monomer_array_t4 = get_monomer_xyzR(monomer_name,-a_/2,b_/2,0,-A1,A2,-A3, phi2)
     xyz_list=['400 \n','polyacene9 \n']##4分子のxyzファイルを作成
-    monomers_array_4 = np.concatenate([monomer_array_i,monomer_array_p1,monomer_array_p3,monomer_array_p2,monomer_array_p4,monomer_array_t1,monomer_array_t2,monomer_array_t3,monomer_array_t4],axis=0)
     
+    if structure_type == 1:##隣接8分子について対称性より3分子でエネルギー計算
+        monomers_array_4 = np.concatenate([monomer_array_i,monomer_array_p3],axis=0)
+    elif structure_type == 2:##隣接8分子について対称性より3分子でエネルギー計算
+        monomers_array_4 = np.concatenate([monomer_array_i,monomer_array_p1],axis=0)
+    elif structure_type == 3:##隣接8分子について対称性より3分子でエネルギー計算
+        monomers_array_4 = np.concatenate([monomer_array_i,monomer_array_p1,monomer_array_p3,monomer_array_p2,monomer_array_p4,monomer_array_t1,monomer_array_t2,monomer_array_t3,monomer_array_t4],axis=0)
+
     for x,y,z,R in monomers_array_4:
         atom = R2atom(R)
         line = '{} {} {} {}\n'.format(atom,x,y,z)     
@@ -132,7 +138,7 @@ def make_xyzfile(monomer_name,params_dict,isInterlayer=False):
     
     return xyz_list
 
-def make_xyz(monomer_name,params_dict):
+def make_xyz(monomer_name,params_dict,structure_type):
     xyzfile_name = ''
     xyzfile_name += monomer_name
     for key,val in params_dict.items():
@@ -141,7 +147,7 @@ def make_xyz(monomer_name,params_dict):
         elif key in ['A1','A2']:#,'theta']:
             val = int(val)
         xyzfile_name += '_{}={}'.format(key,val)
-    return xyzfile_name + '.xyz'
+    return xyzfile_name + f'_{structure_type}.xyz'
 
 def make_gjf_xyz(auto_dir,monomer_name,params_dict,structure_type):
     a_ = params_dict.get('a',0.0); b_ = params_dict.get('b',0.0)
@@ -193,9 +199,9 @@ def exec_gjf(auto_dir, monomer_name, params_dict, machine_type,structure_type,is
     xyz_dir = os.path.join(auto_dir,'gaussview')
     print(params_dict)
     
-    xyzfile_name = make_xyz(monomer_name, params_dict)
+    xyzfile_name = make_xyz(monomer_name, params_dict, structure_type)
     xyz_path = os.path.join(xyz_dir,xyzfile_name)
-    xyz_list = make_xyzfile(monomer_name,params_dict,isInterlayer=False)
+    xyz_list = make_xyzfile(monomer_name,params_dict, structure_type,isInterlayer=False)
     with open(xyz_path,'w') as f:
         f.writelines(xyz_list)
     
