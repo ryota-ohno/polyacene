@@ -53,6 +53,8 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     
     auto_csv_1 = os.path.join(auto_dir,'step1_1.csv');df_E_1 = pd.read_csv(auto_csv_1)
     df_prg_1 = df_E_1.loc[df_E_1['status']=='InProgress',fixed_param_keys+opt_param_keys_1+['file_name','machine_type']]
+    len_prg_1 = len(df_prg_1)
+
     for idx,row in df_prg_1.iterrows():
         params_dict1_ = row[fixed_param_keys + opt_param_keys_1 + ['file_name']].to_dict()
         file_name1=params_dict1_['file_name']##辞書をつくってそこにopt_1とopt_2でファイル名作成
@@ -70,8 +72,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
             break#2つ同時に計算終わったりしたらまずいので一個で切る
     
     
-    auto_csv_2 = os.path.join(auto_dir,'step1_2.csv')
-    df_E_2 = pd.read_csv(auto_csv_2)
+    auto_csv_2 = os.path.join(auto_dir,'step1_2.csv');df_E_2 = pd.read_csv(auto_csv_2)
     df_prg_2 = df_E_2.loc[df_E_2['status']=='InProgress', fixed_param_keys+opt_param_keys_2+['file_name','machine_type']]
     len_prg_2 = len(df_prg_2)
 
@@ -92,8 +93,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
             break  # Break after one iteration
 
     
-    auto_csv_3 = os.path.join(auto_dir, 'step1_3.csv')
-    df_E_3 = pd.read_csv(auto_csv_3)
+    auto_csv_3 = os.path.join(auto_dir, 'step1_3.csv');df_E_3 = pd.read_csv(auto_csv_3)
     df_prg_3 = df_E_3.loc[df_E_3['status'] == 'InProgress', fixed_param_keys+opt_param_keys_1 + opt_param_keys_2 + ['file_name','machine_type']]
     len_prg_3 = len(df_prg_3)
 
