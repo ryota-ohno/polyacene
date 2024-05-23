@@ -122,9 +122,9 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
         params_dict1_ = row[fixed_param_keys + opt_param_keys_1].to_dict()
         params_dict2_ = row[fixed_param_keys + opt_param_keys_2].to_dict()
         params_dict3_ = row[fixed_param_keys + opt_param_keys_1 + opt_param_keys_2].to_dict()
-        file_name1 = filter_df(df_E_1, params_dict1_)['file_name']
-        file_name2 = filter_df(df_E_2, params_dict2_)['file_name']
-        file_name3 = filter_df(df_E_3, params_dict3_)['file_name']
+        file_name1 = str(filter_df(df_E_1, params_dict1_)['file_name']);print(file_name1)
+        file_name2 = str(filter_df(df_E_2, params_dict2_)['file_name'])
+        file_name3 = str(filter_df(df_E_3, params_dict3_)['file_name'])
         
         log_filepath1 = os.path.join(*[auto_dir,'gaussian',file_name1])
         if not(os.path.exists(log_filepath1)):#logファイルが生成される直前だとまずいので
