@@ -52,11 +52,11 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     fixed_param_keys = ['theta'];opt_param_keys_1 = ['a'];opt_param_keys_2 = ['b']
     
     auto_csv_1 = os.path.join(auto_dir,'step1_1.csv');df_E_1 = pd.read_csv(auto_csv_1)
-    df_prg_1 = df_E_1.loc[df_E_1['status']=='InProgress',fixed_param_keys+opt_param_keys_1+['machine_type']]
+    df_prg_1 = df_E_1.loc[df_E_1['status']=='InProgress',fixed_param_keys+opt_param_keys_1+['file_name']]
     machine_type_list_1 = df_prg_1['machine_type'].values.tolist();len_prg_1=len(df_prg_1)
     for idx,row in df_prg_1.iterrows():
         params_dict1_ = row[fixed_param_keys + opt_param_keys_1].to_dict()
-        file_name1=make_file(monomer_name,params_dict1_,structure_type=1)##辞書をつくってそこにopt_1とopt_2でファイル名作成
+        file_name1=params_dict1_['file_name']##辞書をつくってそこにopt_1とopt_2でファイル名作成
         log_filepath1 = os.path.join(*[auto_dir,'gaussian',file_name1])
         if not(os.path.exists(log_filepath1)):#logファイルが生成される直前だとまずいので
             continue
@@ -73,13 +73,13 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     
     auto_csv_2 = os.path.join(auto_dir,'step1_2.csv')
     df_E_2 = pd.read_csv(auto_csv_2)
-    df_prg_2 = df_E_2.loc[df_E_2['status']=='InProgress', fixed_param_keys+opt_param_keys_2+['machine_type']]
+    df_prg_2 = df_E_2.loc[df_E_2['status']=='InProgress', fixed_param_keys+opt_param_keys_2+['file_name']]
     machine_type_list_2 = df_prg_2['machine_type'].values.tolist()
     len_prg_2 = len(df_prg_2)
 
     for idx, row in df_prg_2.iterrows():
         params_dict2_ = row[fixed_param_keys + opt_param_keys_2].to_dict()
-        file_name2=make_file(monomer_name,params_dict2_,structure_type=2)##辞書をつくってそこにopt_1とopt_2でファイル名作成
+        file_name2=params_dict2_['file_name']##辞書をつくってそこにopt_1とopt_2でファイル名作成
         log_filepath2 = os.path.join(*[auto_dir, 'gaussian', file_name2])
         if not(os.path.exists(log_filepath2)):
             continue
@@ -97,13 +97,13 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     
     auto_csv_3 = os.path.join(auto_dir, 'step1_3.csv')
     df_E_3 = pd.read_csv(auto_csv_3)
-    df_prg_3 = df_E_3.loc[df_E_3['status'] == 'InProgress', fixed_param_keys+opt_param_keys_1 + opt_param_keys_2 + ['machine_type']]
+    df_prg_3 = df_E_3.loc[df_E_3['status'] == 'InProgress', fixed_param_keys+opt_param_keys_1 + opt_param_keys_2 + ['file_name']]
     machine_type_list_3 = df_prg_3['machine_type'].values.tolist()
     len_prg_3 = len(df_prg_3)
 
     for idx, row in df_prg_3.iterrows():
         params_dict3_ = row[fixed_param_keys + opt_param_keys_1 + opt_param_keys_2].to_dict()
-        file_name3=make_file(monomer_name,params_dict3_,structure_type=3)##辞書をつくってそこにopt_1とopt_2でファイル名作成
+        file_name3=params_dict3_['file_name']##辞書をつくってそこにopt_1とopt_2でファイル名作成
         log_filepath3 = os.path.join(*[auto_dir, 'gaussian', file_name3])
         if not (os.path.exists(log_filepath3)):
             continue
@@ -225,7 +225,6 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     dict_matrix = get_params_dict(auto_dir,num_nodes)##更新分を流す x1~z2まで取得
     if len(dict_matrix)!=0:#終わりがまだ見えないなら
         for i in range(len(dict_matrix)):
-
             params_dict = dict_matrix[i]#print(params_dict)
             params_dict1 = {k: v for k, v in params_dict.items() if (k in fixed_param_keys) or (k in opt_param_keys_1)}
             params_dict2 = {k: v for k, v in params_dict.items() if (k in fixed_param_keys) or (k in opt_param_keys_2)}

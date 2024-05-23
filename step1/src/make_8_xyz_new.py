@@ -180,7 +180,6 @@ def make_gjf_xyz(auto_dir,monomer_name,params_dict,structure_type):
     gij_xyz_path = os.path.join(auto_dir,'gaussian',file_name)
     with open(gij_xyz_path,'w') as f:
         f.writelines(gij_xyz_lines)
-    
     return file_name
 
 def get_file_name_from_dict(monomer_name,params_dict,structure_type):
