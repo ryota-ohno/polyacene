@@ -223,7 +223,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     
     dict_matrix = get_params_dict(auto_dir,num_nodes)##更新分を流す x1~z2まで取得
     if len(dict_matrix)!=0:#終わりがまだ見えないなら
-        print(len(dict_matrix))
+        #print(len(dict_matrix))
         for i in range(len(dict_matrix)):
             params_dict = dict_matrix[i]#print(params_dict)
             params_dict1 = {k: v for k, v in params_dict.items() if (k in fixed_param_keys) or (k in opt_param_keys_1)}
@@ -238,6 +238,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                     df_E_new=pd.concat([df_E,df_newline.to_frame().T],axis=0,ignore_index=True);df_E_new.to_csv(auto_csv,index=False)
                 
                 ## 1の実行　##
+                print(i)
                 df_sub_1 = filter_df(df_E_1, params_dict1)
                 #df_done_1_ = filter_df(df_E_1, {**params_dict1,'status':'Done'});df_inpr_1_ = filter_df(df_E_1, {**params_dict1,'status':'InProgress'});df_qw_1_ = filter_df(df_E_1, {**params_dict1,'status':'qw'})
                 if len(df_sub_1) > 0:#(len(df_done_1_)>=1) or(len(df_inpr_1_)>=1) or (len(df_qw_1_)>=1):
@@ -259,6 +260,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                         df_E_new_1=pd.concat([df_E_1,df_newline_1.to_frame().T],axis=0,ignore_index=True);df_E_new_1.to_csv(auto_csv_1,index=False)
 
                 ## 2の実行　##
+                print(i)
                 df_sub_2 = filter_df(df_E_2, params_dict2)
                 #df_done_1_ = filter_df(df_E_1, {**params_dict1,'status':'Done'});df_inpr_1_ = filter_df(df_E_1, {**params_dict1,'status':'InProgress'});df_qw_1_ = filter_df(df_E_1, {**params_dict1,'status':'qw'})
                 if len(df_sub_2) > 0:#(len(df_done_1_)>=1) or(len(df_inpr_1_)>=1) or (len(df_qw_1_)>=1):
@@ -280,6 +282,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                         df_E_new_2=pd.concat([df_E_2,df_newline_2.to_frame().T],axis=0,ignore_index=True);df_E_new_2.to_csv(auto_csv_2,index=False)
 
                 ## 3の実行　##
+                print(i)
                 df_sub_3 = filter_df(df_E_3, params_dict3)
                 #df_done_1_ = filter_df(df_E_1, {**params_dict1,'status':'Done'});df_inpr_1_ = filter_df(df_E_1, {**params_dict1,'status':'InProgress'});df_qw_1_ = filter_df(df_E_1, {**params_dict1,'status':'qw'})
                 if len(df_sub_3) > 0:#(len(df_done_1_)>=1) or(len(df_inpr_1_)>=1) or (len(df_qw_1_)>=1):
@@ -373,7 +376,7 @@ def get_params_dict(auto_dir, num_nodes):
                 d={**fixed_params_dict,**opt_params_dict}
                 dict_matrix.append(d)
                     #print(d)
-    print(dict_matrix)
+    #print(dict_matrix)
     return dict_matrix
         
 def get_opt_params_dict(df_cur, init_params_dict,fixed_params_dict):
