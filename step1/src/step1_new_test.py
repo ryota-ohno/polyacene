@@ -119,12 +119,12 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     df_prg = df_E.loc[df_E['status']=='InProgress',fixed_param_keys+opt_param_keys_1+opt_param_keys_2]
     
     for idx,row in df_prg.iterrows():
-        params_dict1_ = row[fixed_param_keys + opt_param_keys_1].to_dict()
-        params_dict2_ = row[fixed_param_keys + opt_param_keys_2].to_dict()
-        params_dict3_ = row[fixed_param_keys + opt_param_keys_1 + opt_param_keys_2].to_dict()
-        file_name1=make_file(monomer_name,params_dict1_,structure_type=3)##辞書をつくってそこにopt_1とopt_2でファイル名作成
-        file_name2=make_file(monomer_name,params_dict2_,structure_type=3)
-        file_name3=make_file(monomer_name,params_dict3_,structure_type=3)
+        params_dict1_ = row[fixed_param_keys + opt_param_keys_1 + ['file_name']].to_dict()
+        params_dict2_ = row[fixed_param_keys + opt_param_keys_2 + ['file_name']].to_dict()
+        params_dict3_ = row[fixed_param_keys + opt_param_keys_1 + opt_param_keys_2 + ['file_name']].to_dict()
+        file_name1 = params_dict1_['file_name']##辞書をつくってそこにopt_1とopt_2でファイル名作成
+        file_name2 = params_dict2_['file_name']
+        file_name3 = params_dict3_['file_name']
         
         log_filepath1 = os.path.join(*[auto_dir,'gaussian',file_name1])
         if not(os.path.exists(log_filepath1)):#logファイルが生成される直前だとまずいので
@@ -219,6 +219,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     
     dict_matrix = get_params_dict(auto_dir,num_nodes)##更新分を流す x1~z2まで取得
     if len(dict_matrix)!=0:#終わりがまだ見えないなら
+        print(len(dict_matrix))
         for i in range(len(dict_matrix)):
             params_dict = dict_matrix[i]#print(params_dict)
             params_dict1 = {k: v for k, v in params_dict.items() if (k in fixed_param_keys) or (k in opt_param_keys_1)}
@@ -269,7 +270,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                         df_E_new_2=pd.concat([df_E_2,df_newline_2.to_frame().T],axis=0,ignore_index=True);df_E_new_2.to_csv(auto_csv_2,index=False)
                     else:
                         file_name = exec_gjf(auto_dir, monomer_name, {**params_dict2}, machine_type=1, structure_type=2,isTest=True)
-                        df_newline_2 = pd.Series({**params_dict2,'E3':0.,'machine_type':1,'status':'qw','file_name':file_name})
+                        df_newline_2 = pd.Series({**params_dict2,'E2':0.,'machine_type':1,'status':'qw','file_name':file_name})
                         df_E_new_2=pd.concat([df_E_2,df_newline_2.to_frame().T],axis=0,ignore_index=True);df_E_new_2.to_csv(auto_csv_2,index=False)
 
                 ## 3の実行　##
