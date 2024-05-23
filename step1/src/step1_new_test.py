@@ -165,7 +165,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     machine_counts_3 = df_inpr_3['machine_type'].value_counts().to_dict();machine_counts_3.setdefault(1, 0);machine_counts_3.setdefault(2, 0)
     num_machine2 = machine_counts_1.get(2, 0) + machine_counts_2.get(2, 0) + machine_counts_3.get(2, 0)
 
-    if len_qw_1 > 0 and margin > 0:# 進行中ジョブのマシンタイプをカウント
+    if (len_qw_1 > 0) and (margin > 0):# 進行中ジョブのマシンタイプをカウント
         for index, row in df_qw_1.iterrows():
             if margin == 0:
                 break
@@ -176,14 +176,13 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                 machine_type = 2# マシンタイプの決定
                 num_machine2 += 1
             file_name = exec_gjf(auto_dir, monomer_name, {**params_dict}, machine_type, structure_type=1, isTest=isTest)# ジョブの実行 structure type
-            len_queue += 1
+            len_queue += 1;margin -= 1
             df_E_1.at[index, 'machine_type'] = machine_type
             df_E_1.at[index, 'status'] = 'InProgress'
             df_E_1.at[index, 'file_name'] = file_name
-            margin -= 1
         df_E_1.to_csv(auto_csv_1, index=False)# データフレームをCSVに保存
     
-    if len_qw_2 > 0 and margin > 0:# 進行中ジョブのマシンタイプをカウント
+    if (len_qw_2) > 0 and (margin > 0):# 進行中ジョブのマシンタイプをカウント
         for index, row in df_qw_2.iterrows():
             if margin == 0:
                 break
@@ -202,7 +201,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
             margin -= 1
         df_E_2.to_csv(auto_csv_2, index=False)# データフレームをCSVに保存
     
-    if len_qw_3 > 0 and margin > 0:# 進行中ジョブのマシンタイプをカウント
+    if (len_qw_3 > 0) and (margin > 0):# 進行中ジョブのマシンタイプをカウント
         for index, row in df_qw_3.iterrows():
             if margin == 0:
                 break
@@ -238,6 +237,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                     df_E_new=pd.concat([df_E,df_newline.to_frame().T],axis=0,ignore_index=True);df_E_new.to_csv(auto_csv,index=False)
                 
                 ## 1の実行　##
+                auto_csv_1 = os.path.join(auto_dir,'step1_1.csv');df_E_1 = pd.read_csv(auto_csv_1)
                 df_sub_1 = filter_df(df_E_1, params_dict1)
                 #df_done_1_ = filter_df(df_E_1, {**params_dict1,'status':'Done'});df_inpr_1_ = filter_df(df_E_1, {**params_dict1,'status':'InProgress'});df_qw_1_ = filter_df(df_E_1, {**params_dict1,'status':'qw'})
                 if len(df_sub_1) == 0:#(len(df_done_1_)>=1) or(len(df_inpr_1_)>=1) or (len(df_qw_1_)>=1):
@@ -258,6 +258,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                         df_E_new_1=pd.concat([df_E_1,df_newline_1.to_frame().T],axis=0,ignore_index=True);df_E_new_1.to_csv(auto_csv_1,index=False)
 
                 ## 2の実行　##
+                auto_csv_2 = os.path.join(auto_dir,'step1_2.csv');df_E_2 = pd.read_csv(auto_csv_2)
                 df_sub_2 = filter_df(df_E_2, params_dict2)
                 #df_done_1_ = filter_df(df_E_1, {**params_dict1,'status':'Done'});df_inpr_1_ = filter_df(df_E_1, {**params_dict1,'status':'InProgress'});df_qw_1_ = filter_df(df_E_1, {**params_dict1,'status':'qw'})
                 if len(df_sub_2) == 0:#(len(df_done_1_)>=1) or(len(df_inpr_1_)>=1) or (len(df_qw_1_)>=1):
@@ -278,6 +279,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                         df_E_new_2=pd.concat([df_E_2,df_newline_2.to_frame().T],axis=0,ignore_index=True);df_E_new_2.to_csv(auto_csv_2,index=False)
 
                 ## 3の実行　##
+                auto_csv_3 = os.path.join(auto_dir,'step1_3.csv');df_E_3 = pd.read_csv(auto_csv_3)
                 df_sub_3 = filter_df(df_E_3, params_dict3)
                 #df_done_1_ = filter_df(df_E_1, {**params_dict1,'status':'Done'});df_inpr_1_ = filter_df(df_E_1, {**params_dict1,'status':'InProgress'});df_qw_1_ = filter_df(df_E_1, {**params_dict1,'status':'qw'})
                 if len(df_sub_3) == 0:#(len(df_done_1_)>=1) or(len(df_inpr_1_)>=1) or (len(df_qw_1_)>=1):
