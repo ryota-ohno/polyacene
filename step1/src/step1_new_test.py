@@ -55,7 +55,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     df_prg_1 = df_E_1.loc[df_E_1['status']=='InProgress',fixed_param_keys+opt_param_keys_1+['file_name','machine_type']]
     machine_type_list_1 = df_prg_1['machine_type'].values.tolist();len_prg_1=len(df_prg_1)
     for idx,row in df_prg_1.iterrows():
-        params_dict1_ = row[fixed_param_keys + opt_param_keys_1].to_dict()
+        params_dict1_ = row[fixed_param_keys + opt_param_keys_1 + ['file_name']].to_dict()
         file_name1=params_dict1_['file_name']##辞書をつくってそこにopt_1とopt_2でファイル名作成
         log_filepath1 = os.path.join(*[auto_dir,'gaussian',file_name1])
         if not(os.path.exists(log_filepath1)):#logファイルが生成される直前だとまずいので
@@ -78,7 +78,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     len_prg_2 = len(df_prg_2)
 
     for idx, row in df_prg_2.iterrows():
-        params_dict2_ = row[fixed_param_keys + opt_param_keys_2].to_dict()
+        params_dict2_ = row[fixed_param_keys + opt_param_keys_2 + ['file_name']].to_dict()
         file_name2=params_dict2_['file_name']##辞書をつくってそこにopt_1とopt_2でファイル名作成
         log_filepath2 = os.path.join(*[auto_dir, 'gaussian', file_name2])
         if not(os.path.exists(log_filepath2)):
@@ -102,7 +102,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     len_prg_3 = len(df_prg_3)
 
     for idx, row in df_prg_3.iterrows():
-        params_dict3_ = row[fixed_param_keys + opt_param_keys_1 + opt_param_keys_2].to_dict()
+        params_dict3_ = row[fixed_param_keys + opt_param_keys_1 + opt_param_keys_2 + ['file_name']].to_dict()
         file_name3=params_dict3_['file_name']##辞書をつくってそこにopt_1とopt_2でファイル名作成
         log_filepath3 = os.path.join(*[auto_dir, 'gaussian', file_name3])
         if not (os.path.exists(log_filepath3)):
