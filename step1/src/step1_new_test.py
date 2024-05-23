@@ -70,7 +70,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
             E1=float(E_list1[0])##8分子に向けてep1,ep2作成　ep1:b ep2:a
             df_E_1.loc[idx, ['E1','status']] = [E1,'Done']
             df_E_1.to_csv(auto_csv_1,index=False)
-            break#2つ同時に計算終わったりしたらまずいので一個で切る
+            time.sleep(1)#2つ同時に計算終わったりしたらまずいので一個で切る
     
     
     auto_csv_2 = os.path.join(auto_dir,'step1_2.csv');df_E_2 = pd.read_csv(auto_csv_2)
@@ -91,7 +91,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
             E2 = float(E_list2[0])  # Updated to E2
             df_E_2.loc[idx, ['E2', 'status']] = [E2, 'Done']
             df_E_2.to_csv(auto_csv_2, index=False)  # Updated to auto_csv_2
-            break  # Break after one iteration
+            time.sleep(1)# Break after one iteration
 
     
     auto_csv_3 = os.path.join(auto_dir, 'step1_3.csv');df_E_3 = pd.read_csv(auto_csv_3)
@@ -112,7 +112,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
             E3 = float(E_list3[0])  # Updated to E3
             df_E_3.loc[idx, ['E3', 'status']] = [E3, 'Done']
             df_E_3.to_csv(auto_csv_3, index=False)  # Updated to auto_csv_3
-            break  # Break after one iteration
+            time.sleep(1)# Break after one iteration
 
 
     auto_csv = os.path.join(auto_dir,'step1.csv')
@@ -151,7 +151,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
             E=E1+E2+E3
             df_E.loc[idx, ['E','E1','E2','E3','status']] = [E,E1,E2,E3,'Done']
             df_E.to_csv(auto_csv,index=False)
-            break#2つ同時に計算終わったりしたらまずいので一個で切る
+            time.sleep(1)#2つ同時に計算終わったりしたらまずいので一個で切る
     
     ###qwになっているものを投げる###
     df_qw_1 = df_E_1[df_E_1['status'] == 'qw'];df_qw_2 = df_E_2[df_E_2['status'] == 'qw'];df_qw_3 = df_E_3[df_E_3['status'] == 'qw']
