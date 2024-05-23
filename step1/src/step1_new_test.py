@@ -241,9 +241,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                 print(i)
                 df_sub_1 = filter_df(df_E_1, params_dict1)
                 #df_done_1_ = filter_df(df_E_1, {**params_dict1,'status':'Done'});df_inpr_1_ = filter_df(df_E_1, {**params_dict1,'status':'InProgress'});df_qw_1_ = filter_df(df_E_1, {**params_dict1,'status':'qw'})
-                if len(df_sub_1) > 0:#(len(df_done_1_)>=1) or(len(df_inpr_1_)>=1) or (len(df_qw_1_)>=1):
-                    continue
-                else:
+                if len(df_sub_1) == 0:#(len(df_done_1_)>=1) or(len(df_inpr_1_)>=1) or (len(df_qw_1_)>=1):
                     isAvailable = len_queue < max_nodes
                     if isAvailable:
                         machine2IsFull = num_machine2 >= maxnum_machine2
@@ -263,9 +261,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                 print(i)
                 df_sub_2 = filter_df(df_E_2, params_dict2)
                 #df_done_1_ = filter_df(df_E_1, {**params_dict1,'status':'Done'});df_inpr_1_ = filter_df(df_E_1, {**params_dict1,'status':'InProgress'});df_qw_1_ = filter_df(df_E_1, {**params_dict1,'status':'qw'})
-                if len(df_sub_2) > 0:#(len(df_done_1_)>=1) or(len(df_inpr_1_)>=1) or (len(df_qw_1_)>=1):
-                    continue
-                else:
+                if len(df_sub_2) == 0:#(len(df_done_1_)>=1) or(len(df_inpr_1_)>=1) or (len(df_qw_1_)>=1):
                     isAvailable = len_queue < max_nodes
                     if isAvailable:
                         machine2IsFull = num_machine2 >= maxnum_machine2
@@ -285,9 +281,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                 print(i)
                 df_sub_3 = filter_df(df_E_3, params_dict3)
                 #df_done_1_ = filter_df(df_E_1, {**params_dict1,'status':'Done'});df_inpr_1_ = filter_df(df_E_1, {**params_dict1,'status':'InProgress'});df_qw_1_ = filter_df(df_E_1, {**params_dict1,'status':'qw'})
-                if len(df_sub_3) > 0:#(len(df_done_1_)>=1) or(len(df_inpr_1_)>=1) or (len(df_qw_1_)>=1):
-                    continue
-                else:
+                if len(df_sub_3) == 0:#(len(df_done_1_)>=1) or(len(df_inpr_1_)>=1) or (len(df_qw_1_)>=1):
                     isAvailable = len_queue < max_nodes
                     if isAvailable:
                         machine2IsFull = num_machine2 >= maxnum_machine2
@@ -394,7 +388,7 @@ def get_opt_params_dict(df_cur, init_params_dict,fixed_params_dict):
                     continue
                 xyz_list.append([a,b]);E_list.append(df_val_xyz['E'].values[0])
         if len(para_list) != 0:
-            print(para_list)
+            #print(para_list)
             return False,para_list
         a_init,b_init = xyz_list[np.argmin(np.array(E_list))]
         if a_init==a_init_prev and b_init==b_init_prev:
