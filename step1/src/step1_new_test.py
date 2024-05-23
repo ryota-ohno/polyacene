@@ -159,7 +159,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     len_queue = len_prg_1 + len_prg_2 + len_prg_3
     len_qw_1 = len(df_qw_1);len_qw_2 = len(df_qw_2);len_qw_3 = len(df_qw_3)
     margin = max_nodes - len_queue
-
+    
     df_inpr_1 = df_E_1.loc[df_E_1['status']=='InProgress'];df_inpr_2 = df_E_2.loc[df_E_2['status']=='InProgress'];df_inpr_3 = df_E_3.loc[df_E_3['status']=='InProgress']
     machine_counts_1 = df_inpr_1['machine_type'].value_counts().to_dict();machine_counts_1.setdefault(1, 0);machine_counts_1.setdefault(2, 0)
     machine_counts_2 = df_inpr_2['machine_type'].value_counts().to_dict();machine_counts_2.setdefault(1, 0);machine_counts_2.setdefault(2, 0)
@@ -232,10 +232,11 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
             params_dict3 = params_dict
             alreadyCalculated = check_calc_status(auto_dir,params_dict)
             if not(alreadyCalculated):##ここで各点について1~3を実行しつつ余ったものをqwにぶち込む
-
-                df_newline = pd.Series({**params_dict,'E':0.,'E1':0.,'E2':0.,'E3':0.,'status':'InProgress'})
-                df_E=df_E.append(df_newline,ignore_index=True)
-                df_E.to_csv(auto_csv,index=False)
+                df_E= pd.read_csv(os.path.join(auto_dir,'step1.csv'))
+                df_E_filtered = filter_df(df_E, params_dict)
+                if len(df_E_filtered) == 0:
+                    df_newline = pd.Series({**params_dict,'E':0.,'E1':0.,'E2':0.,'E3':0.,'status':'InProgress'})
+                    df_E_new=pd.concat([df_E_1,df_newline.to_frame().T],axis=0,ignore_index=True);df_E_new.to_csv(auto_csv,index=False)
                 
                 ## 1の実行　##
                 df_done_1_ = filter_df(df_E_1, {**params_dict1,'status':'Done'});df_inpr_1_ = filter_df(df_E_1, {**params_dict1,'status':'InProgress'});df_qw_1_ = filter_df(df_E_1, {**params_dict1,'status':'qw'})
