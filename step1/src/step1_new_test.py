@@ -373,7 +373,8 @@ def get_params_dict(auto_dir, num_nodes):
                 d={**fixed_params_dict,**opt_params_dict}
                 dict_matrix.append(d)
                     #print(d)
-            return dict_matrix
+    print(dict_matrix)
+    return dict_matrix
         
 def get_opt_params_dict(df_cur, init_params_dict,fixed_params_dict):
     df_val = filter_df(df_cur, fixed_params_dict)
