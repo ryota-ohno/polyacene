@@ -116,7 +116,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
 
     auto_csv = os.path.join(auto_dir,'step1.csv')
     df_E = pd.read_csv(auto_csv)
-    df_prg = df_E.loc[df_E['status']=='InProgress',fixed_param_keys+opt_param_keys_1+opt_param_keys_2]
+    df_prg = df_E.loc[df_E['status']=='InProgress',fixed_param_keys + opt_param_keys_1 + opt_param_keys_2 + ['file_name']]
     
     for idx,row in df_prg.iterrows():
         params_dict1_ = row[fixed_param_keys + opt_param_keys_1 + ['file_name']].to_dict()
