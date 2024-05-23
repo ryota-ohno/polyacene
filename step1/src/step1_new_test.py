@@ -227,8 +227,8 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
         for i in range(len(dict_matrix)):
 
             params_dict=dict_matrix[i]#print(params_dict)
-            params_dict1 = {k: v for k, v in params_dict.items() if (k in fixed_param_keys) or (opt_param_keys_1)}
-            params_dict2 = {k: v for k, v in params_dict.items() if (k in fixed_param_keys) or (opt_param_keys_2)}
+            params_dict1 = {k: v for k, v in params_dict.items() if (k in fixed_param_keys) or (k in opt_param_keys_1)}
+            params_dict2 = {k: v for k, v in params_dict.items() if (k in fixed_param_keys) or (k in opt_param_keys_2)}
             params_dict3 = params_dict
             alreadyCalculated = check_calc_status(auto_dir,params_dict)
             if not(alreadyCalculated):##ここで各点について1~3を実行しつつ余ったものをqwにぶち込む
