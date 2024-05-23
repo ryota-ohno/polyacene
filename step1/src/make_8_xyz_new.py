@@ -169,9 +169,9 @@ def make_gjf_xyz(auto_dir,monomer_name,params_dict,structure_type):
     line_list_dimer_t1 = get_xyzR_lines(dimer_array_t1,file_description+'_t1')
     
     if structure_type == 1:##隣接8分子について対称性より3分子でエネルギー計算
-        gij_xyz_lines = ['$ RunGauss\n'] + line_list_dimer_p1 + ['\n\n\n']
-    elif structure_type == 2:##隣接8分子について対称性より3分子でエネルギー計算
         gij_xyz_lines = ['$ RunGauss\n'] + line_list_dimer_p2 + ['\n\n\n']
+    elif structure_type == 2:##隣接8分子について対称性より3分子でエネルギー計算
+        gij_xyz_lines = ['$ RunGauss\n'] + line_list_dimer_p1 + ['\n\n\n']
     elif structure_type == 3:##隣接8分子について対称性より3分子でエネルギー計算
         gij_xyz_lines = ['$ RunGauss\n'] + line_list_dimer_t1 + ['\n\n\n']
     
