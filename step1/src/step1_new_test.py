@@ -373,7 +373,7 @@ def get_params_dict(auto_dir, num_nodes):
                 d={**fixed_params_dict,**opt_params_dict}
                 dict_matrix.append(d)
                     #print(d)
-    return dict_matrix
+            return dict_matrix
         
 def get_opt_params_dict(df_cur, init_params_dict,fixed_params_dict):
     df_val = filter_df(df_cur, fixed_params_dict)
@@ -390,7 +390,7 @@ def get_opt_params_dict(df_cur, init_params_dict,fixed_params_dict):
                     continue
                 xyz_list.append([a,b]);E_list.append(df_val_xyz['E'].values[0])
         if len(para_list) != 0:
-            #print(para_list)
+            print(para_list)
             return False,para_list
         a_init,b_init = xyz_list[np.argmin(np.array(E_list))]
         if a_init==a_init_prev and b_init==b_init_prev:
