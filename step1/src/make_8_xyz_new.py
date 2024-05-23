@@ -213,7 +213,7 @@ def exec_gjf(auto_dir, monomer_name, params_dict, machine_type,structure_type,is
         f.writelines(cc_list)
     if not(isTest):
         subprocess.run(['qsub',sh_path])
-    log_file_name = os.path.splitext(file_name)[0]+f'_{structure_type}.log'
+    log_file_name = os.path.splitext(file_name)[0]+f'.log'
     return log_file_name
     
 ############################################################################################
