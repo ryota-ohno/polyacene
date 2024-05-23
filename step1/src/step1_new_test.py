@@ -51,6 +51,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
     maxnum_machine2 = 3#int(num_nodes/2) ##多分俺のために空けていてくださったので2 3にする
     fixed_param_keys = ['theta'];opt_param_keys_1 = ['a'];opt_param_keys_2 = ['b']
     
+    ###計算結果をcsvに記録する###
     auto_csv_1 = os.path.join(auto_dir,'step1_1.csv');df_E_1 = pd.read_csv(auto_csv_1)
     df_prg_1 = df_E_1.loc[df_E_1['status']=='InProgress',fixed_param_keys+opt_param_keys_1+['file_name','machine_type']]
     len_prg_1 = len(df_prg_1)
@@ -152,6 +153,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
             df_E.to_csv(auto_csv,index=False)
             break#2つ同時に計算終わったりしたらまずいので一個で切る
     
+    ###qwになっているものを投げる###
     df_qw_1 = df_E_1[df_E_1['status'] == 'qw'];df_qw_2 = df_E_2[df_E_2['status'] == 'qw'];df_qw_3 = df_E_3[df_E_3['status'] == 'qw']
     len_queue = len_prg_1 + len_prg_2 + len_prg_3
     len_qw_1 = len(df_qw_1);len_qw_2 = len(df_qw_2);len_qw_3 = len(df_qw_3)
@@ -236,8 +238,9 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                     df_E_new=pd.concat([df_E,df_newline.to_frame().T],axis=0,ignore_index=True);df_E_new.to_csv(auto_csv,index=False)
                 
                 ## 1の実行　##
-                df_done_1_ = filter_df(df_E_1, {**params_dict1,'status':'Done'});df_inpr_1_ = filter_df(df_E_1, {**params_dict1,'status':'InProgress'});df_qw_1_ = filter_df(df_E_1, {**params_dict1,'status':'qw'})
-                if (len(df_done_1_)>=1) or(len(df_inpr_1_)>=1) or (len(df_qw_1_)>=1):
+                df_sub_1 = filter_df(df_E_1, params_dict1)
+                #df_done_1_ = filter_df(df_E_1, {**params_dict1,'status':'Done'});df_inpr_1_ = filter_df(df_E_1, {**params_dict1,'status':'InProgress'});df_qw_1_ = filter_df(df_E_1, {**params_dict1,'status':'qw'})
+                if len(df_sub_1) > 0:#(len(df_done_1_)>=1) or(len(df_inpr_1_)>=1) or (len(df_qw_1_)>=1):
                     continue
                 else:
                     isAvailable = len_queue < max_nodes
@@ -256,8 +259,9 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                         df_E_new_1=pd.concat([df_E_1,df_newline_1.to_frame().T],axis=0,ignore_index=True);df_E_new_1.to_csv(auto_csv_1,index=False)
 
                 ## 2の実行　##
-                df_done_2_ = filter_df(df_E_2, {**params_dict2,'status':'Done'});df_inpr_2_ = filter_df(df_E_2, {**params_dict2,'status':'InProgress'});df_qw_2_ = filter_df(df_E_2, {**params_dict2,'status':'qw'})
-                if (len(df_done_2_)>=1) or(len(df_inpr_2_)>=1) or (len(df_qw_2_)>=1):
+                df_sub_2 = filter_df(df_E_2, params_dict2)
+                #df_done_1_ = filter_df(df_E_1, {**params_dict1,'status':'Done'});df_inpr_1_ = filter_df(df_E_1, {**params_dict1,'status':'InProgress'});df_qw_1_ = filter_df(df_E_1, {**params_dict1,'status':'qw'})
+                if len(df_sub_2) > 0:#(len(df_done_1_)>=1) or(len(df_inpr_1_)>=1) or (len(df_qw_1_)>=1):
                     continue
                 else:
                     isAvailable = len_queue < max_nodes
@@ -267,7 +271,7 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                             machine_type = 1
                         else:
                             machine_type = 2;num_machine2 += 1
-                        file_name = exec_gjf(auto_dir, monomer_name, {**params_dict2}, machine_type, structure_type=2,isTest=isTest);len_queue +=1
+                        file_name = exec_gjf(auto_dir, monomer_name, {**params_dict2}, machine_type, structure_type=2,isTest=isTest);len_queue += 1
                         df_newline_2 = pd.Series({**params_dict2,'E2':0.,'machine_type':machine_type,'status':'InProgress','file_name':file_name})
                         df_E_new_2=pd.concat([df_E_2,df_newline_2.to_frame().T],axis=0,ignore_index=True);df_E_new_2.to_csv(auto_csv_2,index=False)
                     else:
@@ -276,8 +280,9 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                         df_E_new_2=pd.concat([df_E_2,df_newline_2.to_frame().T],axis=0,ignore_index=True);df_E_new_2.to_csv(auto_csv_2,index=False)
 
                 ## 3の実行　##
-                df_done_3_ = filter_df(df_E_3, {**params_dict3,'status':'Done'});df_inpr_3_ = filter_df(df_E_3, {**params_dict3,'status':'InProgress'});df_qw_3_ = filter_df(df_E_3, {**params_dict3,'status':'qw'})
-                if (len(df_done_3_)>=1) or (len(df_inpr_3_)>=1) or (len(df_qw_3_)>=1):
+                df_sub_3 = filter_df(df_E_3, params_dict3)
+                #df_done_1_ = filter_df(df_E_1, {**params_dict1,'status':'Done'});df_inpr_1_ = filter_df(df_E_1, {**params_dict1,'status':'InProgress'});df_qw_1_ = filter_df(df_E_1, {**params_dict1,'status':'qw'})
+                if len(df_sub_3) > 0:#(len(df_done_1_)>=1) or(len(df_inpr_1_)>=1) or (len(df_qw_1_)>=1):
                     continue
                 else:
                     isAvailable = len_queue < max_nodes
