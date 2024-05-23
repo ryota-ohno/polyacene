@@ -251,11 +251,11 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                             machine_type = 2;num_machine2 += 1
                         file_name = exec_gjf(auto_dir, monomer_name, {**params_dict1}, machine_type, structure_type=1,isTest=isTest);len_queue +=1
                         df_newline_1 = pd.Series({**params_dict1,'E1':0.,'machine_type':machine_type,'status':'InProgress','file_name':file_name})
-                        df_E_new_1=pd.concat([df_E_1,df_newline_1],axis=0,ignore_index=True);df_E_new_1.to_csv(auto_csv_1,index=False)
+                        df_E_new_1=pd.concat([df_E_1,df_newline_1.to_frame().T],axis=0,ignore_index=True);df_E_new_1.to_csv(auto_csv_1,index=False)
                     else:
                         file_name = exec_gjf(auto_dir, monomer_name, {**params_dict1}, machine_type=1, structure_type=1,isTest=True)
                         df_newline_1 = pd.Series({**params_dict1,'E1':0.,'machine_type':1,'status':'qw','file_name':file_name})
-                        df_E_new_1=pd.concat([df_E_1,df_newline_1],axis=0,ignore_index=True);df_E_new_1.to_csv(auto_csv_1,index=False)
+                        df_E_new_1=pd.concat([df_E_1,df_newline_1.to_frame().T],axis=0,ignore_index=True);df_E_new_1.to_csv(auto_csv_1,index=False)
 
                 ## 2の実行　##
                 df_done_2_ = filter_df(df_E_2, {**params_dict2,'status':'Done'});df_inpr_2_ = filter_df(df_E_2, {**params_dict2,'status':'InProgress'});df_qw_2_ = filter_df(df_E_2, {**params_dict2,'status':'qw'})
@@ -271,11 +271,11 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                             machine_type = 2;num_machine2 += 1
                         file_name = exec_gjf(auto_dir, monomer_name, {**params_dict2}, machine_type, structure_type=2,isTest=isTest);len_queue +=1
                         df_newline_2 = pd.Series({**params_dict2,'E2':0.,'machine_type':machine_type,'status':'InProgress','file_name':file_name})
-                        df_E_new_2=pd.concat([df_E_2,df_newline_2],axis=0,ignore_index=True);df_E_new_2.to_csv(auto_csv_2,index=False)
+                        df_E_new_2=pd.concat([df_E_2,df_newline_2.to_frame().T],axis=0,ignore_index=True);df_E_new_2.to_csv(auto_csv_2,index=False)
                     else:
                         file_name = exec_gjf(auto_dir, monomer_name, {**params_dict2}, machine_type=1, structure_type=2,isTest=True)
                         df_newline_2 = pd.Series({**params_dict2,'E3':0.,'machine_type':1,'status':'qw','file_name':file_name})
-                        df_E_new_2=pd.concat([df_E_2,df_newline_2],axis=0,ignore_index=True);df_E_new_2.to_csv(auto_csv_2,index=False)
+                        df_E_new_2=pd.concat([df_E_2,df_newline_2.to_frame().T],axis=0,ignore_index=True);df_E_new_2.to_csv(auto_csv_2,index=False)
 
                 ## 3の実行　##
                 df_done_3_ = filter_df(df_E_3, {**params_dict3,'status':'Done'});df_inpr_3_ = filter_df(df_E_3, {**params_dict3,'status':'InProgress'});df_qw_3_ = filter_df(df_E_3, {**params_dict3,'status':'qw'})
@@ -291,11 +291,11 @@ def listen(auto_dir,monomer_name,num_nodes,max_nodes,isTest):##args自体を引�
                             machine_type = 2;num_machine2 += 1
                         file_name = exec_gjf(auto_dir, monomer_name, {**params_dict3}, machine_type, structure_type=3,isTest=isTest);len_queue +=1
                         df_newline_3 = pd.Series({**params_dict3,'E3':0.,'machine_type':machine_type,'status':'InProgress','file_name':file_name})
-                        df_E_new_3=pd.concat([df_E_3,df_newline_3],axis=0,ignore_index=True);df_E_new_3.to_csv(auto_csv_3,index=False)
+                        df_E_new_3=pd.concat([df_E_3,df_newline_3.to_frame().T],axis=0,ignore_index=True);df_E_new_3.to_csv(auto_csv_3,index=False)
                     else:
                         file_name = exec_gjf(auto_dir, monomer_name, {**params_dict3}, machine_type=1, structure_type=3,isTest=True)
                         df_newline_3 = pd.Series({**params_dict3,'E3':0.,'machine_type':1,'status':'qw','file_name':file_name})
-                        df_E_new_3=pd.concat([df_E_3,df_newline_3],axis=0,ignore_index=True);df_E_new_3.to_csv(auto_csv_3,index=False)
+                        df_E_new_3=pd.concat([df_E_3,df_newline_3.to_frame().T],axis=0,ignore_index=True);df_E_new_3.to_csv(auto_csv_3,index=False)
     
     init_params_csv=os.path.join(auto_dir, 'step1_init_params.csv')
     df_init_params = pd.read_csv(init_params_csv)
