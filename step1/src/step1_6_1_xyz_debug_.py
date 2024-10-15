@@ -120,11 +120,11 @@ def get_params_dict(auto_dir, num_nodes):
             else:
                 status = get_values_from_df(df_init_params,index+1,'status')
             df_init_params.to_csv(init_params_csv,index=False)
-            
             if status=='NotYet':                
                 opt_params_dict = get_values_from_df(df_init_params,index+1,opt_param_keys)
                 df_init_params = update_value_in_df(df_init_params,index+1,'status','InProgress')
                 df_init_params.to_csv(init_params_csv,index=False)
+                print('init_')
                 return {**fixed_params_dict,**opt_params_dict}
             else:
                 continue
