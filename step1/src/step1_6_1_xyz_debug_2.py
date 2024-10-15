@@ -114,6 +114,8 @@ def get_params_dict(auto_dir, num_nodes):
         fixed_params_dict = df_init_params.loc[index,fixed_param_keys].to_dict()
         isDone, opt_params_dict = get_opt_params_dict(df_cur, init_params_dict,fixed_params_dict)
         if isDone:
+            df_init_params = update_value_in_df(df_init_params,index,'status','Done')
+            df_init_params.to_csv(init_params_csv,index=False)
             continue
         else:
             df_inprogress = filter_df(df_cur, {**fixed_params_dict,**opt_params_dict,'status':'InProgress'})
